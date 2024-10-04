@@ -6,6 +6,8 @@ const cors = require('cors');
 const morgan = require('morgan');
 const authRoutes = require('./routes/authRoutes');
 const appointmentRoutes = require('./routes/appointmentRoutes');
+const businessRoutes = require('./routes/businessRoutes'); // Import business routes
+
 
 dotenv.config(); // Load environment variables
 
@@ -28,10 +30,15 @@ mongoose.connect(process.env.MONGO_URI, {
 app.get('/', (req, res) => {
     res.send('API is running...');
 });
-// for user 
+
+// User authentication routes
 app.use('/api/auth', authRoutes);
-// Adding the appointment routes to the server
+
+// Appointment routes
 app.use('/api/appointments', appointmentRoutes);
+
+// Business registration routes
+app.use('/api/business', businessRoutes); // Add business routes
 
 // Start server
 const PORT = process.env.PORT || 5000;
